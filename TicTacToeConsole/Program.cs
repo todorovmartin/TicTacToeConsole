@@ -10,14 +10,24 @@ namespace TicTacToeConsole
             char[] arr = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' };
 
             Board(arr);
-            for (int i = 0; i < arr.Length; i++)
+            for (int i = 0; i < arr.Length - 1; i++)
             {
                 int lastChoice = 0;
-                if (i % 2 == 0)
+                if (i % 2 == 0) // 'x' or 'o'
                 {
                     Console.WriteLine("Choose where to place X (1-9)");
+                    int choice;
+                    string input = Console.ReadLine();
+                    bool success = Int32.TryParse(input, out choice);
 
-                    int choice = Int32.Parse(Console.ReadLine());
+                    if (!success || choice < 1 || choice > 9)
+                    {
+                        Console.WriteLine(Messages.wrongInput);
+                        i--;
+                        continue;
+                    }
+
+                    //int choice = Int32.Parse(Console.ReadLine());
                     if (arr[choice] == 'x' || arr[choice] == 'o')
                     {
                         Console.WriteLine(Messages.squareTaken);
@@ -30,7 +40,19 @@ namespace TicTacToeConsole
                 else
                 {
                     Console.WriteLine("Choose where to place O (1-9)");
-                    int choice = Int32.Parse(Console.ReadLine());
+
+                    int choice;
+                    string input = Console.ReadLine();
+                    bool success = Int32.TryParse(input, out choice);
+
+                    if (!success || choice < 1 || choice > 9)
+                    {
+                        Console.WriteLine(Messages.wrongInput);
+                        i--;
+                        continue;
+                    }
+
+                    //int choice = Int32.Parse(Console.ReadLine());
                     if (arr[choice] == 'x' || arr[choice] == 'o')
                     {
                         Console.WriteLine(Messages.squareTaken);
@@ -47,7 +69,7 @@ namespace TicTacToeConsole
                     break;
                 }
             }
-
+            Console.WriteLine(Messages.draw);
         }
 
         private static void Board(char[] arr)
@@ -83,8 +105,6 @@ namespace TicTacToeConsole
         private static bool CheckIf1to9(string input)
         {
             Regex regex = new Regex("^[1-9]$");
-
-            // todo Int32.TryParse
 
             if (regex.IsMatch(input))
             {
