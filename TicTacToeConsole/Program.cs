@@ -101,16 +101,5 @@ namespace TicTacToeConsole
             return false;
 
         }
-
-        private static bool CheckIf1to9(string input)
-        {
-            Regex regex = new Regex("^[1-9]$");
-
-            if (regex.IsMatch(input))
-            {
-                return true;
-            }
-            return false;
-        }
     }
 }
